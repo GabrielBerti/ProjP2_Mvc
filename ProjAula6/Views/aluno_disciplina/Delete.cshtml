@@ -1,0 +1,71 @@
+﻿@model ProjAula6.aluno_disciplina
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Excluir Aluno / Disciplina</h2>
+
+<h3>Deseja realmente excluir o registro?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ano)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ano)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nota_p1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nota_p1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nota_p2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nota_p2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nota_p3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nota_p3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.aluno.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aluno.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.disciplina.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.disciplina.nome)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar", "Index")
+        </div>
+    }
+</div>

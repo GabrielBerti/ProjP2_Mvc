@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ProjAula6.aluno_curso>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Aluno / Curso</h2>
+
+<p>
+    @Html.ActionLink("Inserir Aluno/Curso", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Aluno
+        </th>
+        <th>
+            Curso
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.aluno.nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.curso.nome)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.id }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

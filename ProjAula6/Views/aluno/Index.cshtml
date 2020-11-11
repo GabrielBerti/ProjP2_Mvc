@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ProjAula6.aluno>
+
+@{
+    ViewBag.Title = "Cadastro de Aluno";
+}
+
+<h2>Aluno</h2>
+
+<p>
+    @Html.ActionLink("Inserir Aluno", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Nome
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            CPF
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cpf)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.ra }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.ra }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.ra })
+        </td>
+    </tr>
+}
+
+</table>

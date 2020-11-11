@@ -1,0 +1,57 @@
+﻿create table aluno (
+					ra     varchar(10)  not null,
+					nome   varchar(100) not null,
+					email  varchar(100) not null,
+					cpf    varchar(14)  not null,
+					constraint pk_aluno primary key (ra),
+					constraint uk_aluno unique (cpf, email)
+					);
+
+create table curso (
+					id             int identity(1, 1) not null,
+					nome           varchar(50)        not null,
+					carga_horaria  varchar(20)        not null,					
+					constraint pk_curso primary key (id),
+					constraint uk_curso unique (nome)
+					);
+
+create table disciplina(
+						id             int identity(1, 1) not null,
+						nome           varchar(50)        not null,
+						num_sala       int          		      ,
+					    horario_inicio varchar(10)        not null,
+					    horario_fim    varchar(10)        not null,
+						constraint pk_disciplina primary key (id),
+						constraint uk_disciplina unique (nome)
+						);
+						
+create table curso_disciplina (
+						      id_curso      int not null,
+							  id_disciplina int not null,
+							  id          int identity(1, 1) not null,
+							  constraint pk_curso_disciplina primary key (id),
+							  constraint fk_curso_disciplina_curso foreign key (id_curso) references curso(id),
+							  constraint fk_curso_disciplina_disciplina foreign key (id_disciplina) references disciplina(id)
+							  );	
+
+create table aluno_curso (
+ 	 					 ra_aluno varchar(10) not null,
+						 id_curso int         not null,
+						 id          int identity(1, 1) not null,
+						 constraint pk_aluno_curso primary key (id),
+					     constraint fk_aluno_curso_aluno foreign key (ra_aluno) references aluno(ra),
+					     constraint fk_aluno_curso_curso foreign key (id_curso) references curso(id)
+						 ); 							  
+
+create table aluno_disciplina (
+			   				  ra_aluno      varchar(10)        not null,
+							  id_disciplina int                not null,
+							  ano           int                not null,
+							  nota_p1       numeric(7, 2) 			   ,     
+							  nota_p2       numeric(7, 2)              ,
+							  nota_p3       numeric(7, 2)              ,
+							  id          int identity(1, 1) not null,
+							  constraint pk_aluno_disciplina primary key (id),
+							  constraint fk_aluno_disciplina_aluno foreign key (ra_aluno) references aluno(ra),
+							  constraint fk_aluno_disciplina_disciplina foreign key (id_disciplina) references disciplina(id)
+							  );

@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="projP2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="aluno">
+    <Key>
+      <PropertyRef Name="ra" />
+    </Key>
+    <Property Name="ra" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="cpf" Type="varchar" MaxLength="14" Nullable="false" />
+  </EntityType>
+  <EntityType Name="aluno_curso">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="ra_aluno" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="id_curso" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="aluno_disciplina">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="ra_aluno" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="id_disciplina" Type="int" Nullable="false" />
+    <Property Name="ano" Type="int" Nullable="false" />
+    <Property Name="nota_p1" Type="numeric" Precision="7" Scale="2" />
+    <Property Name="nota_p2" Type="numeric" Precision="7" Scale="2" />
+    <Property Name="nota_p3" Type="numeric" Precision="7" Scale="2" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="curso">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nome" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="carga_horaria" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="curso_disciplina">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id_curso" Type="int" Nullable="false" />
+    <Property Name="id_disciplina" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="disciplina">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nome" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="num_sala" Type="int" />
+    <Property Name="horario_inicio" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="horario_fim" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <Association Name="fk_aluno_curso_aluno">
+    <End Role="aluno" Type="Self.aluno" Multiplicity="1" />
+    <End Role="aluno_curso" Type="Self.aluno_curso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aluno">
+        <PropertyRef Name="ra" />
+      </Principal>
+      <Dependent Role="aluno_curso">
+        <PropertyRef Name="ra_aluno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_aluno_curso_curso">
+    <End Role="curso" Type="Self.curso" Multiplicity="1" />
+    <End Role="aluno_curso" Type="Self.aluno_curso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="curso">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="aluno_curso">
+        <PropertyRef Name="id_curso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_aluno_disciplina_aluno">
+    <End Role="aluno" Type="Self.aluno" Multiplicity="1" />
+    <End Role="aluno_disciplina" Type="Self.aluno_disciplina" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aluno">
+        <PropertyRef Name="ra" />
+      </Principal>
+      <Dependent Role="aluno_disciplina">
+        <PropertyRef Name="ra_aluno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_aluno_disciplina_disciplina">
+    <End Role="disciplina" Type="Self.disciplina" Multiplicity="1" />
+    <End Role="aluno_disciplina" Type="Self.aluno_disciplina" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="disciplina">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="aluno_disciplina">
+        <PropertyRef Name="id_disciplina" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_curso_disciplina_curso">
+    <End Role="curso" Type="Self.curso" Multiplicity="1" />
+    <End Role="curso_disciplina" Type="Self.curso_disciplina" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="curso">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="curso_disciplina">
+        <PropertyRef Name="id_curso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_curso_disciplina_disciplina">
+    <End Role="disciplina" Type="Self.disciplina" Multiplicity="1" />
+    <End Role="curso_disciplina" Type="Self.curso_disciplina" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="disciplina">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="curso_disciplina">
+        <PropertyRef Name="id_disciplina" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="projP2ModelStoreContainer">
+    <EntitySet Name="aluno" EntityType="Self.aluno" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="aluno_curso" EntityType="Self.aluno_curso" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="aluno_disciplina" EntityType="Self.aluno_disciplina" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="curso" EntityType="Self.curso" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="curso_disciplina" EntityType="Self.curso_disciplina" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="disciplina" EntityType="Self.disciplina" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_aluno_curso_aluno" Association="Self.fk_aluno_curso_aluno">
+      <End Role="aluno" EntitySet="aluno" />
+      <End Role="aluno_curso" EntitySet="aluno_curso" />
+    </AssociationSet>
+    <AssociationSet Name="fk_aluno_curso_curso" Association="Self.fk_aluno_curso_curso">
+      <End Role="curso" EntitySet="curso" />
+      <End Role="aluno_curso" EntitySet="aluno_curso" />
+    </AssociationSet>
+    <AssociationSet Name="fk_aluno_disciplina_aluno" Association="Self.fk_aluno_disciplina_aluno">
+      <End Role="aluno" EntitySet="aluno" />
+      <End Role="aluno_disciplina" EntitySet="aluno_disciplina" />
+    </AssociationSet>
+    <AssociationSet Name="fk_aluno_disciplina_disciplina" Association="Self.fk_aluno_disciplina_disciplina">
+      <End Role="disciplina" EntitySet="disciplina" />
+      <End Role="aluno_disciplina" EntitySet="aluno_disciplina" />
+    </AssociationSet>
+    <AssociationSet Name="fk_curso_disciplina_curso" Association="Self.fk_curso_disciplina_curso">
+      <End Role="curso" EntitySet="curso" />
+      <End Role="curso_disciplina" EntitySet="curso_disciplina" />
+    </AssociationSet>
+    <AssociationSet Name="fk_curso_disciplina_disciplina" Association="Self.fk_curso_disciplina_disciplina">
+      <End Role="disciplina" EntitySet="disciplina" />
+      <End Role="curso_disciplina" EntitySet="curso_disciplina" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

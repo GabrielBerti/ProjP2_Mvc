@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ProjAula6.disciplina>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Disciplina</h2>
+
+<p>
+    @Html.ActionLink("Inserir Disciplina", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Nome
+        </th>
+        <th>
+            Num. Sala
+        </th>
+        <th>
+            Hora Início
+        </th>
+        <th>
+            Hora Fim
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.num_sala)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.horario_inicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.horario_fim)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.id }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>
